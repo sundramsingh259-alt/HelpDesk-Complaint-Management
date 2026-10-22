@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard | HelpDesk{% endblock %}
+
+{% block content %}
+
+<section class="dashboard">
+
+    <h1>Administrator Dashboard 🛠️</h1>
+
+    <p>Welcome, Administrator!</p>
+
+    <div class="stats-container">
+
+        <div class="stat-card">
+            <h3>Total Complaints</h3>
+            <p>{{ total_complaints }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Pending</h3>
+            <p>{{ pending_complaints }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>In Progress</h3>
+            <p>{{ in_progress_complaints }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Resolved</h3>
+            <p>{{ resolved_complaints }}</p>
+        </div>
+
+    </div>
+
+    <h2>All Student Complaints</h2>
+
+    {% if complaints %}
+
+        {% for complaint in complaints %}
+
+            <div class="complaint-card">
+
+                <h3>{{ complaint.title }}</h3>
+
+                <p><strong>Complaint ID:</strong> {{ complaint.id }}</p>
+
+                <p><strong>Student:</strong> {{ complaint.name }}</p>
+
+                <p><strong>Email:</strong> {{ complaint.email }}</p>
+
+                <p><strong>Category:</strong> {{ complaint.category }}</p>
+
+                <p><strong>Description:</strong> {{ complaint.description }}</p>
+
+                <p><strong>Current Status:</strong> {{ complaint.status }}</p>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('update_status', complaint_id=complaint.id) }}"
+                >
+
+                    <label for="status-{{ complaint.id }}">Update Status</label>
+
+                    <select
+                        id="status-{{ complaint.id }}"
+                        name="status"
+                        required
+                    >
+                        <option value="Pending"
+                            {% if complaint.status == "Pending" %}selected{% endif %}>
+                            Pending
+                        </option>
+
+                        <option value="In Progress"
+                            {% if complaint.status == "In Progress" %}selected{% endif %}>
+                            In Progress
+                        </option>
+
+                        <option value="Resolved"
+                            {% if complaint.status == "Resolved" %}selected{% endif %}>
+                            Resolved
+                        </option>
+                    </select>
+
+                    <button type="submit" class="button">
+                        Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No complaints have been submitted yet.</p>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

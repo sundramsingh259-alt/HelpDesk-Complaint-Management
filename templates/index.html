@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home | HelpDesk{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Welcome to HelpDesk</h1>
+
+    <p>
+        College Complaint and Support Management System
+    </p>
+
+    <p>
+        Submit your college-related complaints and track
+        their progress in one place.
+    </p>
+
+    <div class="hero-buttons">
+        <a class="button" href="{{ url_for('register') }}">
+            Get Started
+        </a>
+
+        <a class="button secondary" href="{{ url_for('login') }}">
+            Login
+        </a>
+    </div>
+</section>
+
+{% endblock %}

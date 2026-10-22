@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Login | HelpDesk{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+    <h2>Welcome Back</h2>
+
+    <form method="POST" action="{{ url_for('login') }}">
+
+        <label for="email">Email Address</label>
+
+        <input
+            type="email"
+            id="email"
+            name="email"
+            maxlength="254"
+            autocomplete="email"
+            required
+        >
+
+        <label for="password">Password</label>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit" class="button">
+            Login
+        </button>
+
+    </form>
+
+    <p>
+        Don't have an account?
+        <a href="{{ url_for('register') }}">Register here</a>
+    </p>
+</div>
+
+{% endblock %}
